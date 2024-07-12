@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Calculo do IMC</title>
+  </head>
+  <body>
+    <main class="container_IMC">
+      <section class="container_form">
+        <form id="form">
+          <h2>Calculo do IMC</h2>
+
+          <label for="nome">Nome: </label>
+          <input
+            type="text"
+            name="nome"
+            id="nome"
+            placeholder="Digite o primeiro nome"
+          />
+          <span class="msg_erro"></span>
+
+          <label for="altura">Altura (m): </label>
+          <input
+            type="number"
+            name="altura"
+            id="altura"
+            placeholder="Digite sua altura"
+            step="any"
+          />
+          <span class="msg_erro"></span>
+
+          <label for="peso">Peso (kg): </label>
+          <input
+            type="number"
+            name="peso"
+            id="peso"
+            placeholder="Digite seu Peso"
+            step="any"
+          />
+          <span class="msg_erro"></span>
+
+          <button type="submit">Calcular</button>
+        </form>
+      </section>
+
+      <section class="result_for">
+        <div id="imcResult" class="imc_result">
+          <h2>Resultado IMC</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Data do Resultado</th>
+                <th>Nome</th>
+                <th>Altura</th>
+                <th>Peso</th>
+                <th>IMC</th>
+                <th>Avaliação</th>
+              </tr>
+            </thead>
+            <tbody class="tabela_tbody"></tbody>
+          </table>
+          <p id="mensagemAvaliativa"></p>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
