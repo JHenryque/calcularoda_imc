@@ -10,20 +10,30 @@ document.addEventListener("DOMContentLoaded", () => {
   let contador = 0;
   formImc.addEventListener("submit", (event) => {
     event.preventDefault();
+    const nome = document.getElementById("nome").value;
+    const altura = document.getElementById("altura").value;
+    const peso = document.getElementById("peso").value;
     let bool = false;
 
     input.forEach((element, index) => {
       let valid = msg_erro[index];
       //onsole.log(valid);
 
-      if (element.value === "") {
+      if (nome && altura && peso) {
+        valid.classList.add("hidden");
+        localStorage.setItem("nome", nome);
+        localStorage.setItem("altura", altura);
+        localStorage.setItem("peso", peso);
+
+        document.getElementById("nome").value = "";
+        document.getElementById("altura").value = "";
+        document.getElementById("peso").value = "";
+        bool = true;
+      } else {
+        valid.textContent = "";
         valid.textContent = "* Campo obrigatorio !";
         valid.style.backgroundColor = "#ffc6c6";
         bool = false;
-      } else {
-        valid.textContent = "";
-        valid.classList.add("hidden");
-        bool = true;
       }
     });
 
@@ -34,12 +44,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const resultadoIMC = () => {
-    const nome = document.getElementById("nome").value;
-    const altura = parseFloat(document.getElementById("altura").value);
-    const peso = parseFloat(document.getElementById("peso").value);
+    const nome = localStorage.getItem("nome");
+    const altura = parseFloat(localStorage.getItem("altura"));
+    const peso = parseFloat(localStorage.getItem("peso"));
     const tbody = document.querySelector(".tabela_tbody");
     const mensgAvaliat = document.getElementById("mensagemAvaliativa");
-    console.log(mensgAvaliat);
 
     contador++;
     const time = new Date();
@@ -71,15 +80,23 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     tbody.innerHTML += `
-        <tr>
-                <td>${contador}</td>
-                <td>${time.getDate()}/${time.getMonth()}/${time.getFullYear()} - ${time.getHours()}:${time.getMinutes()}</td>
-                <td>${nome}</td>
-                <td>${altura}</td>
-                <td>${peso}</td>
-                <td>${imc.toFixed(2)}</td>
-                <td>${mensagem}</td>
-        </tr>
-    `;
+          <tr>
+                  <td>${contador}</td>
+                  <td>${time.getDate()}/${time.getMonth()}/${time.getFullYear()} - ${time.getHours()}:${time.getMinutes()}</td>
+                  <td>${nome}</td>
+                  <td>${altura}</td>
+                  <td>${peso}</td>
+                  <td>${imc.toFixed(2)}</td>
+                  <td>${mensagem}</td>
+                  <td><button id="remove" type="click">Excluir</button></td>
+          </tr>
+      `;
+    const removeBtn = document.getElementById("remove");
+    removeBtn.addEventListener("click", () => {
+      localStorage.removeItem("nome");
+      localStorage.removeItem("altura");
+      localStorage.removeItem("peso");
+      localStorage.removeItem("elemento");
+    });
   };
 });
